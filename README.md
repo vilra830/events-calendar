@@ -20,5 +20,5 @@ MVC
 
 ## Tech Stack
 
-React Typescript on the front end
+React Typescript on the front endP
 SpringBoot Java MYSQL on the backend
