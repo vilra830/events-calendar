@@ -2,12 +2,16 @@ package com.vilra830.events_calendar.event;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.validation.Valid;
 
 @Service
 public class EventService {
+
+    @Autowired
+    private EventRepository eventRepository;
 
     public Event createEvent(CreateEventDTO newEvent) {
         // TODO Auto-generated method stub
