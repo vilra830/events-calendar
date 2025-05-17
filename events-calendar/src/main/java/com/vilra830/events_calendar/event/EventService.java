@@ -33,7 +33,7 @@ public class EventService {
     }
 
     public List<Event> getEventsByLocation(String location) {
-        List <Event> events = eventRepository.findEventByLocation(location);
+        List <Event> events = eventRepository.findEventByLocation(location.trim());
         if(events.isEmpty()){
             throw new NotFoundException("No event at " + location);
         }
