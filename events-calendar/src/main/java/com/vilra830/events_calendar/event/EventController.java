@@ -1,8 +1,10 @@
 package com.vilra830.events_calendar.event;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +46,21 @@ public class EventController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     
     }
+
+        @GetMapping("/label")
+    public ResponseEntity<List<Event>> getEventsByLabel (@RequestParam String label) {
+        List <Event> events = eventService.getEventsByLabel(label);
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    
+    }
+
+    @GetMapping("/date")
+    public ResponseEntity<List<Event>> getEventsByDate ( @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        List <Event> events = eventService.getEventsByDate(date);
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    
+    }
+    
 
     @PatchMapping("/{id}")
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody @Valid UpdateEventDTO updatedEvent){

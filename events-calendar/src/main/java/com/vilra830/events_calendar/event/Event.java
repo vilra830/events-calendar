@@ -1,7 +1,6 @@
 package com.vilra830.events_calendar.event;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
@@ -23,7 +22,7 @@ public class Event {
     private String label;
     
     @Column(nullable = false)
-    private LocalDateTime dateTime;
+    private LocalDate date;
 
     @Column(nullable = false)
     private String location;
@@ -47,12 +46,12 @@ public class Event {
         this.label = label;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getLocation() {

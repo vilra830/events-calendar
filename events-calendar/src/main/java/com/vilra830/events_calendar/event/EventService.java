@@ -1,9 +1,16 @@
 package com.vilra830.events_calendar.event;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
+import javax.naming.NameNotFoundException;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.vilra830.events_calendar.common.exceptions.NotFoundException;
 
 import jakarta.validation.Valid;
 
@@ -13,29 +20,64 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     public Event createEvent(CreateEventDTO newEvent) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createEvent'");
+        Event event  = modelMapper.map(newEvent, Event.class);
+        return eventRepository.save(event);
     }
 
     public List<Event> getAllEvents() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllEvents'");
+        return eventRepository.findAll();
     }
 
     public List<Event> getEventsByLocation(String location) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEventsByLocation'");
+        List <Event> events = eventRepository.findEventByLocation(location);
+        if(events.isEmpty()){
+            throw new NotFoundException("No event at " + location);
+        }
+       return events;
     }
 
     public Event updateEvent(Long id, UpdateEventDTO updatedEvent) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateEvent'");
+        Optional<Event> result = eventRepository.findById(id);
+        if(result.isEmpty()){
+            throw new NotFoundException("No event with such ID " + id);
+        }
+        Event event = result.get();
+        modelMapper.map(updatedEvent, event);
+        return eventRepository.save(event);
     }
 
     public void deleteEvent(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteEvent'");
+        Optional<Event> result = eventRepository.findById(id);
+        if(result.isEmpty()){
+            throw new NotFoundException("No event with such ID " + id);
+        }
+
+        eventRepository.deleteById(id);
     }
+
+    public List<Event> getEventsByDate(LocalDate date) {
+        List <Event> events = eventRepository.findEventByDate(date);
+        if(events.isEmpty()){
+            throw new NotFoundException("No events found on " + date);
+        }
+
+        return events;
+
+    }
+
+    public List<Event> getEventsByLabel(String label) {
+        List <Event> events = eventRepository.findEventsByLabel(label);
+        if(events.isEmpty()){
+            throw new NotFoundException("No event for " + label);
+        }    
+        return events;
+    }
+        
+
+
 
 }

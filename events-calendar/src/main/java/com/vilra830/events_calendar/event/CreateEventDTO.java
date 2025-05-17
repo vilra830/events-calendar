@@ -1,6 +1,6 @@
 package com.vilra830.events_calendar.event;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
 
@@ -14,7 +14,7 @@ public class CreateEventDTO {
     private String name;
 
     @NotBlank(message = "Date and Time is required")
-    private LocalDateTime localDateTime;
+    private LocalDate date;
 
     @NotBlank(message = "Location is required")
     private String location;
@@ -35,12 +35,12 @@ public class CreateEventDTO {
         this.name = name;
     }
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    public void settDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getLocation() {

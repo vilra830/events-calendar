@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EventRepository extends JpaRepository<Event, Long>{
-    Optional<Event> findEventByDate(LocalDate dateTime);
+    List<Event> findEventByDate(LocalDate dateTime);
     List <Event> findEventsByLabel(String label);
     List<Event> findEventByLocation(String location);
     
