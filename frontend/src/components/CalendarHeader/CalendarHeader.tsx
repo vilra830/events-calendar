@@ -1,3 +1,5 @@
+import styles from "./CalendarHeader.module.scss";
+
 type Props = {
   date: Date;
   onPrev: () => void;
@@ -9,16 +11,14 @@ const CalendarHeader = ({ date, onPrev, onNext }: Props) => {
   const year = date.getFullYear();
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        marginBottom: "1rem",
-      }}
-    >
-      <button onClick={onPrev}>←</button>
-      <h2>{`${month} ${year}`}</h2>
-      <button onClick={onNext}>→</button>
+    <div className={styles.header}>
+      <button onClick={onPrev} className={styles.button}>
+        ←
+      </button>
+      <h2 className={styles.title}>{`${month} ${year}`}</h2>
+      <button onClick={onNext} className={styles.button}>
+        →
+      </button>
     </div>
   );
 };
